@@ -5,12 +5,12 @@ const twitterBtn = document.getElementById('twitter');
 const newQuotebtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
-function loading(){
+function showLoadingSpinner(){
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-function loadingComplete(){
+function removeLoadingSpinner(){
     if (!loader.hidden){
         quoteContainer.hidden = false;
         loader.hidden = true;
@@ -19,7 +19,7 @@ function loadingComplete(){
 
 //get quote from api
 async function getQuote(){
-    loading();
+    showLoadingSpinner();
     const proxyUrl = "https://shrouded-sea-82269.herokuapp.com/"
     const apiUrl = "http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json";
     try {
@@ -40,12 +40,10 @@ async function getQuote(){
         }
         quoteText.innerText = data.quoteText;
 
-       loadingComplete();
+       removeLoadingSpinner();
 
     } catch (error) {
-        getQuote();
-        
-       
+      
     }
 }
 
